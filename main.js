@@ -70,27 +70,28 @@ $("#closeCategories").click(() => {
   $("#data").css("opacity", 1);
 });
 
+$("#categoriesLink").click(() => {
+  getCategories();
+  closeSideNav();
+});
+
 getCategoryMeals("Seafood");
 
 // // <==================================================>
 
 function displayMeals(meals) {
-  let box = "";
-
-  for (let i = 0; i < meals.length; i++) {
-    box += `
-        <div class="col-md-3">
-            <div class="card rounded-2" onclick="getMealDetails('${meals[i].idMeal}')">
-              <img src="${meals[i].strMealThumb}" alt="Meal" />
-              <div class="overlay text-center">
-                <h5 class="fs-5 text-white">${meals[i].strMeal}</h5>
+  data.innerHTML = meals
+    .map(
+      (meal) => `<div class="col-md-3">
+              <div class="card rounded-2" onclick="getMealDetails('${meal.idMeal}')">
+                <img src="${meal.strMealThumb}" alt="Meal" />
+                <div class="overlay text-center">
+                <h5 class="fs-5 text-white">${meal.strMeal}</h5>
               </div>
             </div>
-          </div>
-        `;
-  }
-
-  data.innerHTML = box;
+          </div>`
+    )
+    .join("");
 }
 
 async function getCategoryMeals(category) {
@@ -222,28 +223,28 @@ async function getCategories() {
 function displayCategories(categories) {
   $("#data").css("opacity", 0.3);
 
-  let box = "";
+  categoriesList.innerHTML = categories
+    .map(
+      (category) =>
+        `
+  <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="card rounded-2" onclick="getCategoryMeals('${
+        category.strCategory
+      }'); $('#data').css('opacity', '1'); $('#categories').fadeOut(300)">
+        <img src="${category.strCategoryThumb}" alt="Category" />
+        <div class="overlay text-center">
+        <h4>${category.strCategory}</h4>
+        <p>${category.strCategoryDescription
+          .split(" ")
+          .slice(0, 14)
+          .join(" ")}...</p>
+        </div>
+      </div>
+    </div>
+  `
+    )
+    .join(" ");
 
-  for (let i = 0; i < categories.length; i++) {
-    box += `
-        <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="card rounded-2" onclick="getCategoryMeals('${
-              categories[i].strCategory
-            }'); $('#data').css('opacity', '1'); $('#categories').fadeOut(300)">
-              <img src="${categories[i].strCategoryThumb}" alt="Category" />
-              <div class="overlay text-center">
-              <h4>${categories[i].strCategory}</h4>
-              <p>${categories[i].strCategoryDescription
-                .split(" ")
-                .slice(0, 14)
-                .join(" ")}...</p>
-              </div>
-            </div>
-          </div>
-        `;
-  }
-
-  categoriesList.innerHTML = box;
   $("#categories").fadeIn(300);
 }
 
@@ -256,6 +257,11 @@ $("#area").fadeOut(0);
 $("#closeArea").click(() => {
   $("#area").fadeOut(300);
   $("#data").css("opacity", 1);
+});
+
+$("#areaLink").click(() => {
+  getArea();
+  closeSideNav();
 });
 
 // // <==================================================>
@@ -289,20 +295,19 @@ async function getAreaMeals(area) {
 function displayArea(area) {
   $("#data").css("opacity", 0.3);
 
-  let box = "";
+  areaList.innerHTML = area
+    .map(
+      (data) => `
+  <div class="col-md-3">
+    <div class="card rounded-2 text-center py-3" onclick="getAreaMeals('${data.strArea}'); $('#data').css('opacity', '1'); $('#area').fadeOut(300)">
+      <i class="fa-solid fa-earth-americas fa-3x mb-3"></i>
+      <h4 class="mb-0">${data.strArea}</h4> 
+    </div>
+  </div>
+  `
+    )
+    .join(" ");
 
-  for (let i = 0; i < area.length; i++) {
-    box += `
-      <div class="col-md-3">
-        <div class="card rounded-2 text-center py-3" onclick="getAreaMeals('${area[i].strArea}'); $('#data').css('opacity', '1'); $('#area').fadeOut(300)">
-          <i class="fa-solid fa-earth-americas fa-3x mb-3"></i>
-          <h4 class="mb-0">${area[i].strArea}</h4> 
-        </div>
-      </div>
-      `;
-  }
-
-  areaList.innerHTML = box;
   $("#area").fadeIn(300);
 }
 
@@ -315,6 +320,11 @@ $("#ingredients").fadeOut(0);
 $("#closeIngredients").click(() => {
   $("#ingredients").fadeOut(300);
   $("#data").css("opacity", 1);
+});
+
+$("#ingredientsLink").click(() => {
+  getIngredients();
+  closeSideNav();
 });
 
 // // <==================================================>
@@ -348,26 +358,25 @@ async function getIngredientsMeals(ingredients) {
 function displayIngredients(ingredient) {
   $("#data").css("opacity", 0.3);
 
-  let box = "";
+  ingredientsList.innerHTML = ingredient
+    .map(
+      (data) => `
+  <div class="col-md-3">
+    <div class="card rounded-2 text-center p-3" onclick="getIngredientsMeals('${
+      data.strIngredient
+    }'); $('#data').css('opacity', '1'); $('#ingredients').fadeOut(300)" >
+      <i class="fa-solid fa-pizza-slice fa-3x"></i>
+      <h4 class="mb-2 mt-3">${data.strIngredient}</h4>
+      <p class="m-0">${data.strDescription
+        .split(" ")
+        .slice(0, 14)
+        .join(" ")}...</p>
+    </div>
+  </div>
+  `
+    )
+    .join("");
 
-  for (let i = 0; i < ingredient.length; i++) {
-    box += `
-      <div class="col-md-3">
-        <div class="card rounded-2 text-center p-3" onclick="getIngredientsMeals('${
-          ingredient[i].strIngredient
-        }'); $('#data').css('opacity', '1'); $('#ingredients').fadeOut(300)" >
-          <i class="fa-solid fa-pizza-slice fa-3x"></i>
-          <h4 class="mb-2 mt-3">${ingredient[i].strIngredient}</h4>
-          <p class="m-0">${ingredient[i].strDescription
-            .split(" ")
-            .slice(0, 14)
-            .join(" ")}...</p>
-        </div>
-      </div>
-      `;
-  }
-
-  ingredientsList.innerHTML = box;
   $("#ingredients").fadeIn(300);
 }
 
@@ -377,13 +386,13 @@ function displayIngredients(ingredient) {
 
 $("#search").fadeOut(0);
 
+$("#closeSearch").click(() => {
+  $("#search").fadeOut(300);
+});
+
 $("#searchLink").click(() => {
   closeSideNav();
   $("#search").fadeIn(300);
-});
-
-$("#closeSearch").click(() => {
-  $("#search").fadeOut(300);
 });
 
 async function searchByName(term) {
@@ -424,17 +433,15 @@ async function searchByFLetter(term) {
 
 $("#contact").fadeOut(0);
 
+$("#closeContact").click(() => {
+  $("#contact").fadeOut(300);
+  $("#data").css("opacity", 1);
+});
+
 $("#contactUs").click(() => {
   closeSideNav();
   $("#data").css("opacity", 0.3);
   $("#contact").fadeIn(300);
-  $("body").css("overflow", "hidden");
-});
-
-$("#closeContact").click(() => {
-  $("#contact").fadeOut(300);
-  $("#data").css("opacity", 1);
-  $("body").css("overflow", "auto");
 });
 
 let submitBtn = document.getElementById("submitBtn");
