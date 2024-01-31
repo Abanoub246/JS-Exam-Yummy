@@ -236,7 +236,7 @@ function displayCategories(categories) {
         <h4>${category.strCategory}</h4>
         <p>${category.strCategoryDescription
           .split(" ")
-          .slice(0, 14)
+          .slice(0, 20)
           .join(" ")}...</p>
         </div>
       </div>
@@ -360,20 +360,22 @@ function displayIngredients(ingredient) {
 
   ingredientsList.innerHTML = ingredient
     .map(
-      (data) => `
-  <div class="col-md-3">
-    <div class="card rounded-2 text-center p-3" onclick="getIngredientsMeals('${
-      data.strIngredient
-    }'); $('#data').css('opacity', '1'); $('#ingredients').fadeOut(300)" >
-      <i class="fa-solid fa-pizza-slice fa-3x"></i>
-      <h4 class="mb-2 mt-3">${data.strIngredient}</h4>
-      <p class="m-0">${data.strDescription
-        .split(" ")
-        .slice(0, 14)
-        .join(" ")}...</p>
-    </div>
-  </div>
-  `
+      (data) =>
+        `
+        <div class="col-md-3">
+          <div class="card rounded-2" onclick="getIngredientsMeals('${
+            data.strIngredient
+          }'); $('#data').css('opacity', '1'); $('#ingredients').fadeOut(300)">
+            <img src="https://www.themealdb.com/images/ingredients/${
+              data.strIngredient
+            }.png" alt="ingredient" />
+            <div class="overlay text-center">
+            <h4>${data.strIngredient}</h4>
+            <p>${data.strDescription.split(" ").slice(0, 20).join(" ")}...</p>
+            </div>
+          </div>
+        </div>
+      `
     )
     .join("");
 
@@ -433,6 +435,17 @@ async function searchByFLetter(term) {
 
 $("#contact").fadeOut(0);
 
+$("#contact input").keyup(() => {
+  inputsValidation();
+});
+
+$("#nameWarning").fadeOut(0);
+$("#emailWarning").fadeOut(0);
+$("#phoneWarning").fadeOut(0);
+$("#ageWarning").fadeOut(0);
+$("#passwordWarning").fadeOut(0);
+$("#rePasswordWarning").fadeOut(0);
+
 $("#closeContact").click(() => {
   $("#contact").fadeOut(300);
   $("#data").css("opacity", 1);
@@ -464,8 +477,16 @@ function inputsValidation() {
 }
 
 function nameValidation() {
-  return /^[a-zA-Z ]+$/.test(document.getElementById("uName").value);
+  return /^[a-zA-Z ]+$/.test($("#uName").val());
 }
+
+$("#uName").keyup(() => {
+  if (nameValidation()) {
+    $("#nameWarning").fadeOut(300);
+  } else {
+    $("#nameWarning").fadeIn(300);
+  }
+});
 
 function emailValidation() {
   return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -473,11 +494,27 @@ function emailValidation() {
   );
 }
 
+$("#email").keyup(() => {
+  if (emailValidation()) {
+    $("#emailWarning").fadeOut(300);
+  } else {
+    $("#emailWarning").fadeIn(300);
+  }
+});
+
 function phoneValidation() {
   return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(
     document.getElementById("phone").value
   );
 }
+
+$("#phone").keyup(() => {
+  if (phoneValidation()) {
+    $("#phoneWarning").fadeOut(300);
+  } else {
+    $("#phoneWarning").fadeIn(300);
+  }
+});
 
 function ageValidation() {
   return /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(
@@ -485,11 +522,27 @@ function ageValidation() {
   );
 }
 
+$("#age").keyup(() => {
+  if (ageValidation()) {
+    $("#ageWarning").fadeOut(300);
+  } else {
+    $("#ageWarning").fadeIn(300);
+  }
+});
+
 function passwordValidation() {
   return /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/.test(
     document.getElementById("password").value
   );
 }
+
+$("#password").keyup(() => {
+  if (passwordValidation()) {
+    $("#passwordWarning").fadeOut(300);
+  } else {
+    $("#passwordWarning").fadeIn(300);
+  }
+});
 
 function repasswordValidation() {
   return (
@@ -497,3 +550,11 @@ function repasswordValidation() {
     document.getElementById("password").value
   );
 }
+
+$("#rePassword").keyup(() => {
+  if (repasswordValidation()) {
+    $("#rePasswordWarning").fadeOut(300);
+  } else {
+    $("#rePasswordWarning").fadeIn(300);
+  }
+});

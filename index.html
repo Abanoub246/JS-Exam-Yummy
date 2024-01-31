@@ -270,65 +270,90 @@
         class="fa-solid fa-xmark p-3 rounded-3 shadow text-dark fs-5"
       ></i>
       <div class="container-lg p-4">
-        <form id="contactInputs" class="row g-2">
+        <form id="contactInputs" class="row">
           <div class="col-md-6">
-            <input
-              class="form-control"
-              placeholder="Enter Your Name"
-              id="uName"
-              type="text"
-              onkeyup="inputsValidation()"
-            />
+            <div class="input-container">
+              <input placeholder="Enter Your Name" id="uName" type="text" />
+              <label for="uName" class="input-label">Enter Your Name</label>
+              <span class="input-highlight"></span>
+            </div>
+
+            <div id="nameWarning" class="alert alert-warning">
+              Special characters and numbers not allowed
+            </div>
           </div>
 
           <div class="col-md-6">
-            <input
-              class="form-control"
-              placeholder="Enter Your Email"
-              id="email"
-              type="email"
-              onkeyup="inputsValidation()"
-            />
+            <div class="input-container">
+              <input placeholder="Enter Your Email" id="email" type="email" />
+              <label for="email" class="input-label">Enter Your Email</label>
+              <span class="input-highlight"></span>
+            </div>
+
+            <div id="emailWarning" class="alert alert-warning">
+              Email not valid *exemple@yyy.zzz
+            </div>
           </div>
 
           <div class="col-md-6">
-            <input
-              class="form-control"
-              placeholder="Enter Your Phone"
-              id="phone"
-              type="tel"
-              onkeyup="inputsValidation()"
-            />
+            <div class="input-container">
+              <input placeholder="Enter Your Phone" id="phone" type="tel" />
+              <label for="phone" class="input-label">Enter Your Phone</label>
+              <span class="input-highlight"></span>
+            </div>
+
+            <div id="phoneWarning" class="alert alert-warning">
+              Enter valid Phone Number
+            </div>
           </div>
 
           <div class="col-md-6">
-            <input
-              class="form-control"
-              placeholder="Enter Your Age"
-              id="age"
-              type="number"
-              onkeyup="inputsValidation()"
-            />
+            <div class="input-container">
+              <input placeholder="Enter Your Age" id="age" type="number" />
+              <label for="age" class="input-label">Enter Your Age</label>
+              <span class="input-highlight"></span>
+            </div>
+
+            <div id="ageWarning" class="alert alert-warning">
+              Enter valid age
+            </div>
           </div>
 
           <div class="col-md-6">
-            <input
-              class="form-control"
-              placeholder="Enter Your Password"
-              id="password"
-              type="password"
-              onkeyup="inputsValidation()"
-            />
+            <div class="input-container">
+              <input
+                placeholder="Enter Your Password"
+                id="password"
+                type="password"
+              />
+              <label for="password" class="input-label"
+                >Enter Your Password</label
+              >
+              <span class="input-highlight"></span>
+            </div>
+
+            <div id="passwordWarning" class="alert alert-warning">
+              Enter valid password *Minimum eight characters, at least one
+              letter and one number:*
+            </div>
           </div>
 
           <div class="col-md-6">
-            <input
-              class="form-control"
-              placeholder="Repeat Your Password"
-              id="rePassword"
-              type="password"
-              onkeyup="inputsValidation()"
-            />
+            <div class="input-container">
+              <input
+                placeholder="Repeat Your Password"
+                id="rePassword"
+                type="password"
+              />
+              <label for="rePassword" class="input-label"
+                >Repeat Your Password</label
+              >
+              <span class="input-highlight"></span>
+            </div>
+
+            <div id="rePasswordWarning" class="alert alert-warning">
+              Enter valid repassword
+            </div>
           </div>
         </form>
         <button
